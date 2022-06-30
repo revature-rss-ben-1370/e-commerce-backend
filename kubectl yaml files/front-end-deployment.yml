@@ -1,0 +1,25 @@
+
+apiVersion: apps/v1
+kind: Deployment 
+metadata: 
+  name: front-end-deployment 
+  namespace: p3-space  
+  labels: 
+    app: front-end 
+
+spec: # Specifications for the Deployment!
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: front-end # has to match the template labels app. 
+  template: 
+    metadata: 
+      labels: 
+        app: front-end
+    spec: # specification for the pod itself now!
+      containers: 
+        - name: front-end-deployment
+          image: elrintowser/p3-frontend
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Always 
