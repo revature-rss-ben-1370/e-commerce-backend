@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata: 
+  name: back-end-deployment 
+  namespace: p3-space  
+  labels: 
+    app: back-end 
+
+spec: # Specifications for the Deployment!
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: back-end # has to match the template labels app. 
+  template: 
+    metadata: 
+      labels: 
+        app: back-end
+    spec: # specification for the pod itself now!
+      containers: 
+        - name: back-end-deployment
+          image: elrintowser/p3-backend
+          ports:
+            - containerPort: 5000
+          imagePullPolicy: Always 
