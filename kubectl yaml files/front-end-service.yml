@@ -4,12 +4,14 @@ metadata:
   name: front-end-service
   namespace: p3-space
   labels: 
-    app: front-end 
+    app: e-commerce
+    tier: frontend
 spec:
   type: LoadBalancer
   selector: 
-    app: front-end 
+    app: e-commerce
+    tier: frontend
   ports: 
     - port: 80  #front-end prot  
       targetPort: 3000 # this is for the container port
-        
+      protocol: "TCP"
