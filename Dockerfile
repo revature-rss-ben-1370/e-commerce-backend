@@ -7,7 +7,7 @@ FROM maven:3.8.5-openjdk-8 AS MAVEN_BUILD_STAGE
 COPY ./ ./
 
 # cleans the project and makes the shaded jar
-RUN mvn clean package
+RUN mvn clean package -Dmaven.test.skip=true
 
 
 #Distributable lightweight image for running the jar file
