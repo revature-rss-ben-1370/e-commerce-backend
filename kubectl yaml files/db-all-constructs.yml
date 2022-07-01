@@ -38,3 +38,10 @@ spec:
         ports:
         - containerPort: 5432
           name: db-port
+        volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: db-data
+      volumes:
+        - name: db-data #I'm attaching the volume in the container, labelled as "db-data" to an external volume
+          persistentVolumeClaim:
+            claimName: postgres-pvc
