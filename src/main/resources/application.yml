@@ -7,12 +7,11 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQL14Dialect
     defer-datasource-initialization: true
   datasource:
+    platform: postgres
     url: jdbc:postgresql://db-service:5432/postgres
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: example
-  h2:
-    console.enabled: true
 
   mail:
     properties:
