@@ -4,11 +4,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create-drop
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.PostgreSQL14Dialect
     defer-datasource-initialization: true
   datasource:
     url: jdbc:postgresql://db-service:5432/postgres
-    driver-class-name: org.h2.Driver
+    driver-class-name: org.postgresql.Driver
     username: postgres
     password: example
   h2:
