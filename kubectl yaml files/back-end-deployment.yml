@@ -36,3 +36,4 @@ spec: # Specifications for the Deployment!
             limits:
               memory: "2Gi"
               cpu: "500m"
+
