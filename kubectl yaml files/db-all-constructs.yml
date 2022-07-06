@@ -1,7 +1,7 @@
 apiVersion: v1 # Source: https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/
 kind: Service
 metadata:
-  name: db
+  name: db-service
   namespace: p3-space
   labels:
     app: db
@@ -38,8 +38,8 @@ spec:
           - name: PGDATA 
             value: /var/lib/postgresql/data/pgdata
         ports:
-        - containerPort: 5432
-          name: db-port
+          - containerPort: 5432
+            name: db-port
         volumeMounts:
           - mountPath: /var/lib/postgresql/data
             name: db-data
