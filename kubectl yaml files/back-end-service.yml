@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service 
 metadata:
   name: e-commerce-service
-  namespace: test
+  namespace: p3-space
   labels: 
     app: e-commerce
     tier: backend
