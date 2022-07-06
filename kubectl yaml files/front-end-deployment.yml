@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: front-end-deployment 
+  namespace: p3-space
+  labels:
+    app: front-end
+spec:
+  replicas: 1
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: e-commerce
+      tier: frontend
+      track: stable
+  template:
+    metadata:
+      labels:
+        app: e-commerce
+        tier: frontend
+        track: stable
+    spec:
+      containers:
+        - name: front-end-deployment
+          image: elrintowser/p3-frontend
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/usr/sbin/nginx","-s","quit"]
+          ports:
+            - containerPort: 3000
+          imagePullPolicy: Always
+          resources:
+             limits:
+               memory: "2Gi"
+               cpu: "500m"
