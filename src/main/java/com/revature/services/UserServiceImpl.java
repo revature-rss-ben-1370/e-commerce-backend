@@ -45,10 +45,10 @@ public class UserServiceImpl implements UserService{
     public void sendEmail(String email, int id){
         try {
             String subject = "Password Reset Request";
-            String siteurl = "localhost:3000/reset-password/" + id ;
+            String siteurl = "http://a28ea15be699e4cab91ffc61d183dfc6-120750143.us-east-1.elb.amazonaws.com/reset-password/" + id ;
             String senderName = "RevatureMerchTeam";
             String mailContent = "<p>Click the link below to change your password</p>"
-                    + "<a href=\"http://localhost:3000/reset-password/" + id +
+                    + "<a href=\"http://a28ea15be699e4cab91ffc61d183dfc6-120750143.us-east-1.elb.amazonaws.com/reset-password/" + id +
                     "\"> Link to Reset Password</a>" + "<br> <p>Thank you for shopping with us</p>";
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message);

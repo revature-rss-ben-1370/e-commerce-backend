@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/product")
-@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
+@CrossOrigin(origins = "http://a28ea15be699e4cab91ffc61d183dfc6-120750143.us-east-1.elb.amazonaws.com", allowCredentials = "true")
 public class ProductController {
 
     private final ProductServiceImpl productService;

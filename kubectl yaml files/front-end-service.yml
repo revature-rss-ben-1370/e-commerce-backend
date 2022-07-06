@@ -9,7 +9,8 @@ spec:
   type: LoadBalancer
   selector: 
     app: front-end 
-  ports: 
-    - port: 80  #front-end prot  
+  ports:
+    - protocol: "TCP"  
+      port: 80  #front-end port  
       targetPort: 3000 # this is for the container port
         
