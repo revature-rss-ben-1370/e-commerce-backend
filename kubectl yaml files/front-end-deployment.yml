@@ -18,7 +18,7 @@ spec: # Specifications for the Deployment!
     spec: # specification for the pod itself now!
       containers: 
         - name: front-end-deployment
-          image: zachburnett/front-end
+          image: elrintowser/p3-frontend
           ports:
             - name: http
               containerPort: 3000
