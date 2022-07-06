@@ -1,6 +1,7 @@
 server:
   port: 5000
 spring:
+  sql.init.mode: always
   jpa:
     hibernate:
       ddl-auto: update
