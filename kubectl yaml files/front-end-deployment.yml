@@ -1,4 +1,3 @@
-
 apiVersion: apps/v1
 kind: Deployment 
 metadata: 
@@ -19,7 +18,8 @@ spec: # Specifications for the Deployment!
     spec: # specification for the pod itself now!
       containers: 
         - name: front-end-deployment
-          image: elrintowser/p3-frontend
+          image: zachburnett/front-end
           ports:
-            - containerPort: 3000
+            - name: http
+              containerPort: 3000
           imagePullPolicy: Always 
