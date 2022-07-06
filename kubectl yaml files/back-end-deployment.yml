@@ -8,6 +8,12 @@ metadata:
 
 spec: # Specifications for the Deployment!
   replicas: 1
+  minReadySeconds: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 0
   selector: 
     matchLabels: 
       app: e-commerce # has to match the template labels app. 
@@ -25,5 +31,8 @@ spec: # Specifications for the Deployment!
           image: elrintowser/p3-backend
           ports:
             - containerPort: 5000
-          imagePullPolicy: Always 
-
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: "2Gi"
+              cpu: "500m"

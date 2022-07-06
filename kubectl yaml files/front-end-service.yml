@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service 
 metadata:
   name: front-end-service
-  namespace: p3-space
+  namespace: test
   labels: 
     app: e-commerce
     tier: frontend
