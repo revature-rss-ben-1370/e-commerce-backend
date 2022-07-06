@@ -3,7 +3,7 @@ server:
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop-update
+      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     defer-datasource-initialization: true
   datasource:
