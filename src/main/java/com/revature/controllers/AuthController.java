@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://a28ea15be699e4cab91ffc61d183dfc6-120750143.us-east-1.elb.amazonaws.com", allowCredentials = "true")
+@CrossOrigin(origins = "http://2205java-sre-p3.s3-website-us-east-1.amazonaws.com/", allowCredentials = "true")
 public class AuthController{
 
     private final AuthService authService;
