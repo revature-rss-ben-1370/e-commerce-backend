@@ -1,5 +1,5 @@
 
-
+DELETE FROM product WHERE id <= 5;
 INSERT INTO product (id, quantity, price,sale_rate, description, image, name,is_sale) VALUES (
     1,
     10,
@@ -9,7 +9,7 @@ INSERT INTO product (id, quantity, price,sale_rate, description, image, name,is_
     'https://rss-p3-202203.s3.amazonaws.com/resources/images/headphone.png',
     'Headphones',
     false
-),
+) ,
 (
     2,
     5,
@@ -19,7 +19,7 @@ INSERT INTO product (id, quantity, price,sale_rate, description, image, name,is_
     'https://d3o2e4jr3mxnm3.cloudfront.net/Mens-Jake-Guitar-Vintage-Crusher-Tee_68382_1_lg.png',
     'TeeShirt',
     false
-),
+) ,
 (
     3,
     20,
@@ -29,7 +29,7 @@ INSERT INTO product (id, quantity, price,sale_rate, description, image, name,is_
     'https://images.ctfassets.net/5gvckmvm9289/3BlDoZxSSjqAvv1jBJP7TH/65f9a95484117730ace42abf64e89572/Noissue-x-Creatsy-Tote-Bag-Mockup-Bundle-_4_-2.png',
     'Shopping Bag',
     false
-),
+) ,
 (
     4,
     20,
@@ -39,7 +39,7 @@ INSERT INTO product (id, quantity, price,sale_rate, description, image, name,is_
     'https://d3o2e4jr3mxnm3.cloudfront.net/Rocket-Vintage-Chill-Cap_66374_1_lg.png',
     'Baseball Cap',
     false
-),
+) ,
 (
     5,
     3,
@@ -49,8 +49,9 @@ INSERT INTO product (id, quantity, price,sale_rate, description, image, name,is_
     'https://www.pngarts.com/files/3/Women-Jacket-PNG-High-Quality-Image.png',
     'Coat',
     true
-);
+) ;
 --Copy Pasting the salt doesn't work
+DELETE FROM users WHERE id = 1;
 INSERT INTO users (id, email, password, first_name, last_name, salt) VALUES (
     1,
     'testuser@gmail.com',
@@ -58,10 +59,11 @@ INSERT INTO users (id, email, password, first_name, last_name, salt) VALUES (
     'Test',
     'User',
     'NotSoRandomSalt?'
-);
+) ;
 
+DELETE FROM reset_request WHERE id = 1;
 INSERT into reset_request (id,time_stamp,user_id) VALUES(
     1,
     12345678,
     1
-);
+) ;

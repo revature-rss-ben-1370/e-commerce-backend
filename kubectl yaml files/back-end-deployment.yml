@@ -4,7 +4,9 @@ metadata:
   name: back-end-deployment 
   namespace: p3-space  
   labels: 
-    app: back-end 
+    app: e-commerce
+    tier: back-end
+    track: stable
 
 spec: # Specifications for the Deployment!
   replicas: 1
@@ -17,13 +19,13 @@ spec: # Specifications for the Deployment!
   selector: 
     matchLabels: 
       app: e-commerce # has to match the template labels app. 
-      tier: backend
+      tier: back-end
       track: stable
   template: 
     metadata: 
       labels: 
         app: e-commerce
-        tier: backend
+        tier: back-end
         track: stable
     spec: # specification for the pod itself now!
       containers: 

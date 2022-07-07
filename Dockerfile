@@ -8,7 +8,7 @@ COPY ./ ./
 
 #Set environmental variables for test cases
 ARG DB_PLATFORM=org.hibernate.dialect.H2Dialect
-ARG DB_URL=jdbc:h2:mem:memdb
+ARG DB_URL=jdbc:h2:mem:test;MODE=PostgreSQL
 ARG DB_DRIVER=org.h2.Driver
 
 # cleans the project and makes the shaded jar
