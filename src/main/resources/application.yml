@@ -32,6 +32,7 @@ management:
   endpoints:
     web:
       base-path: "/"
-      path-mapping.prometheus: metrics
+      path-mapping:
+        prometheus: "metrics"
       exposure:
-        include: "health,info,prometheus"
+        include: "health,prometheus,info"
