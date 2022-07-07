@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: promtail-daemonset
+spec:
+  selector:
+    matchLabels:
+      name: promtail
+  template:
+    metadata:
+      labels:
+        name: promtail
+    spec:
+      serviceAccount: promtail-serviceaccount
+      serviceAccountName: promtail-serviceaccount
+      volumes:
+      - name: logs
+        hostPath:
+          path: /var/log
+      - name: promtail-config
+        configMap:
+          name: promtail-configmap
+      containers:
+      - name: promtail-container
+        image: grafana/promtail
+        args:
+        - -config.file=/etc/promtail/promtail.yaml
+        env: 
+        - name: 'HOSTNAME' # needed when using kubernetes_sd_configs
+          valueFrom:
+            fieldRef:
+              fieldPath: 'spec.nodeName'
+        volumeMounts:
+        - name: logs
+          mountPath: /var/log/host
+        - name: promtail-config
+          mountPath: /etc/promtail
