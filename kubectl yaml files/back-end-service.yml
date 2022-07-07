@@ -5,12 +5,12 @@ metadata:
   namespace: p3-space
   labels: 
     app: e-commerce
-    tier: backend
-spec:
+    tier: back-end 
+spec: 
   type: LoadBalancer
   selector: 
     app: e-commerce
-    tier: backend
+    tier: back-end 
   ports: 
     - port: 5000 #back-end prot 
       targetPort: 5000 # this is for the container port 

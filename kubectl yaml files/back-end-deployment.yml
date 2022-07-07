@@ -4,7 +4,9 @@ metadata:
   name: back-end-deployment 
   namespace: p3-space  
   labels: 
-    app: back-end 
+    app: e-commerce
+    tier: back-end
+    track: stable
 
 spec: # Specifications for the Deployment!
   replicas: 1
@@ -17,18 +19,25 @@ spec: # Specifications for the Deployment!
   selector: 
     matchLabels: 
       app: e-commerce # has to match the template labels app. 
-      tier: backend
+      tier: back-end
       track: stable
   template: 
     metadata: 
       labels: 
         app: e-commerce
-        tier: backend
+        tier: back-end
         track: stable
     spec: # specification for the pod itself now!
       containers: 
         - name: back-end-deployment
           image: elrintowser/p3-backend
+          env:
+            - name: DB_PLATFORM
+              value: org.hibernate.dialect.PostgreSQLDialect
+            - name: DB_URL
+              value: jdbc:postgresql://db-service.p3-space.svc.cluster.local:5432/postgres?user=postgres&password=example
+            - name: DB_DRIVER
+              value: org.postgresql.Driver
           ports:
             - containerPort: 5000
           imagePullPolicy: Always
@@ -36,4 +45,3 @@ spec: # Specifications for the Deployment!
             limits:
               memory: "2Gi"
               cpu: "500m"
-
