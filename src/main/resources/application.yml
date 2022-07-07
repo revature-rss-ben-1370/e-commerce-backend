@@ -5,15 +5,16 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database-platform: ${DB_PLATFORM} #org.hibernate.dialect.PostgreSQLDialect 
     defer-datasource-initialization: true
   datasource:
-    platform: postgres
-    url: jdbc:postgresql://db-service.p3-space.svc.cluster.local:5432/postgres?user=postgres&password=example # <service-name>.<namespace>.svc.cluster.<cluster>:<service-port>
+    #platform: postgres # might change to postgresql # !ENV ${DATASOURCE_PLATFORM}
+    url: ${DB_URL} #jdbc:postgresql://db-service.p3-space.svc.cluster.local:5432/postgres?user=postgres&password=example
 
-    driver-class-name: org.postgresql.Driver
+    driver-class-name: ${DB_DRIVER} #org.postgresql.Driver 
     username: postgres
     password: example
+    initialization-mode: always
 
   mail:
     properties:
