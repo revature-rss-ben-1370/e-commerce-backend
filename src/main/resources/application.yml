@@ -26,3 +26,9 @@ spring:
     username: ${LOCALEMAIL}
     password: ${EMAILPASSWORD}
     port: '587'
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,prometheus"
