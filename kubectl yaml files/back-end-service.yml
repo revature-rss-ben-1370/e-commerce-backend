@@ -7,7 +7,6 @@ metadata:
     app: e-commerce
     tier: back-end 
 spec: 
-  type: LoadBalancer
   selector: 
     app: e-commerce
     tier: back-end 
