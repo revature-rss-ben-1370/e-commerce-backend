@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-
+        registry = 'elrintowser/p3-backend'
     }
 
     stages {
