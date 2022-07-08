@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service 
+metadata:
+  name: front-end-service-nginx
+  namespace: p3-space
+  labels: 
+    app: front-end-nginx 
+spec:
+  selector: 
+    app: front-end-nginx 
+  ports: 
+    - port: 80  #front-end prot  
+      targetPort: 3000 # this is for the container port
+        
