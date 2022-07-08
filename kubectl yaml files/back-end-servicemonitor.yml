@@ -2,16 +2,14 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: backend-monitor
-  namespace: p3-space
+  namespace: monitoring
   labels:
     app: e-commerce
-    tier: back-end
     prometheus: devops
+    release: p3-prom-stack
 spec:
   endpoints:
-  - port: http
-    interval: 15s
-    targetPort: 5000
+  - port: e-commerce-app
     path: /metrics
   namespaceSelector:
     matchNames:
