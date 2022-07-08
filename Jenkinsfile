@@ -26,6 +26,7 @@ spec:
       hostPath:
         path: /var/run/docker.sock
 """
+}
     }
 
     environment {
@@ -54,8 +55,6 @@ spec:
                         dockerImage = docker.build "$registry"
                     }
                 }
-
-
             }
         }
         stage('Pushing Docker Image') {
