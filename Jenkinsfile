@@ -1,10 +1,17 @@
 pipeline {
     agent any
 
+    environment {
+
+    }
+
     stages {
         stage('Build') {
             steps {
                 echo 'Building..'
+                
+                sh "mvn package"
+
             }
         }
         stage('Test') {
