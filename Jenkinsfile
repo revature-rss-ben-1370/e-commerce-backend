@@ -60,6 +60,14 @@ spec:
         stage('Pushing Docker Image') {
             steps {
                 echo 'Pushing..'
+                script {
+                    echo "NOW PUSHING TO DOCKER HUB"
+                    docker.withRegistry('', dockerHubCredentials){
+                        //dbDockerImage.push("latest")
+                        dockerImage.push("$currentBuild.number")
+                        dockerImage.push("latest")
+
+                }
             }
         }
         stage('Test') {
