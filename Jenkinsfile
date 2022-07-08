@@ -1,6 +1,5 @@
 pipeline {
- agent any
-
+    agent any
     environment {
         registry = 'elrintowser/p3-backend'
         dockerHubCredentials = 'dockerHubCredentials'
@@ -10,7 +9,7 @@ pipeline {
     stages {
         stage('Build') {
             agent {
-                label "maven-agent"
+                label "maven"
             }
             steps {
                 echo 'Building..'
