@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service 
 metadata:
-  name: back-end-service
+  name: e-commerce-service
   namespace: p3-space
   labels: 
     app: e-commerce
