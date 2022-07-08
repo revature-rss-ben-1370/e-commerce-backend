@@ -22,7 +22,7 @@ pipeline {
             steps {
                 echo 'Building Image..'
                 script {
-                    sh 'NOW BUILDING DOCKER IMAGE'
+                    echo 'NOW BUILDING DOCKER IMAGE'
                     dockerImage = docker.build "$registry"
                 }
 
