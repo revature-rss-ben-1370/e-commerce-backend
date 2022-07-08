@@ -42,10 +42,17 @@ spec:
             }
             steps {
                 echo 'Building..'
-                
+                sh "export DB_PLATFORM=org.hibernate.dialect.H2Dialect"
+                sh "export DB_URL=jdbc:h2:mem:test;MODE=PostgreSQL"
+                sh "export DB_DRIVER=org.h2.Driver"
                 sh "mvn package"
             }
         }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }        
         stage('Building Docker Image') {
             steps {
                 container('docker'){
@@ -72,14 +79,12 @@ spec:
                 }
             }
         }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+                script {
+                    sh "kubectl set image -n p3-space deployment/back-end-deployment back-end-deployment=$registry:$currentBuild.number"
+                }
             }
         }
     }
