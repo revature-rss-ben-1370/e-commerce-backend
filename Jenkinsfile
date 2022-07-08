@@ -1,5 +1,32 @@
 pipeline {
-    agent any
+    agent {
+        kubernetes {
+          label 'idk'
+          defaultContainer 'jnlp'
+          yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+labels:
+  component: ci
+spec:
+  # Use service account that can deploy to all namespaces
+  serviceAccountName: jenkins
+  containers:
+  - name: docker
+    image: docker:latest
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - mountPath: /var/run/docker.sock
+      name: docker-sock
+  volumes:
+    - name: docker-sock
+      hostPath:
+        path: /var/run/docker.sock
+"""
+    }
 
     environment {
         registry = 'elrintowser/p3-backend'
@@ -19,14 +46,13 @@ pipeline {
             }
         }
         stage('Building Docker Image') {
-            agent {
-                label "docker"
-            }
             steps {
-                echo 'Building Image..'
-                script {
-                    echo 'NOW BUILDING DOCKER IMAGE'
-                    dockerImage = docker.build "$registry"
+                container('docker'){
+                    echo 'Building Image..'
+                    script {
+                        echo 'NOW BUILDING DOCKER IMAGE'
+                        dockerImage = docker.build "$registry"
+                    }
                 }
 
 
