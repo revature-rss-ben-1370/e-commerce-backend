@@ -1,33 +1,5 @@
 pipeline {
-    agent {
-        kubernetes {
-          label 'idk'
-          defaultContainer 'jnlp'
-          yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-labels:
-  component: ci
-spec:
-  # Use service account that can deploy to all namespaces
-  serviceAccountName: jenkins
-  containers:
-  - name: docker
-    image: docker:latest
-    command:
-    - cat
-    tty: true
-    volumeMounts:
-    - mountPath: /var/run/docker.sock
-      name: docker-sock
-  volumes:
-    - name: docker-sock
-      hostPath:
-        path: /var/run/docker.sock
-"""
-}
-    }
+ agent any
 
     environment {
         registry = 'elrintowser/p3-backend'
@@ -38,7 +10,7 @@ spec:
     stages {
         stage('Build') {
             agent {
-                label "maven"
+                label "maven-agent"
             }
             steps {
                 echo 'Building..'
@@ -54,20 +26,20 @@ spec:
             }
         }        
         stage('Building Docker Image') {
-            steps {
-                container('docker'){
-                    echo 'Building Image..'
-                    script {
-                        echo 'NOW BUILDING DOCKER IMAGE'
-                        dockerImage = docker.build "$registry"
-                    }
-                }
+            agent {
+                label "docker-agent"
             }
+                steps {
+                        echo 'Building Image..'
+                        script {
+                            echo 'NOW BUILDING DOCKER IMAGE'
+                            dockerImage = docker.build "$registry"
+                        }
+                }
         }
         stage('Pushing Docker Image') {
             steps {
                 echo 'Pushing..'
-                container('docker'){
                     script {
                         echo "NOW PUSHING TO DOCKER HUB"
                         docker.withRegistry('', dockerHubCredentials){
@@ -76,7 +48,6 @@ spec:
                             dockerImage.push("latest")
                         }
                     }
-                }
             }
         }
         stage('Deploy') {
