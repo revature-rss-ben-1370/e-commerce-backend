@@ -7,6 +7,9 @@ pipeline {
 
     stages {
         stage('Build') {
+            agent {
+                label = "maven"
+            }
             steps {
                 echo 'Building..'
                 
