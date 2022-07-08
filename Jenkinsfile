@@ -66,6 +66,7 @@ spec:
                         //dbDockerImage.push("latest")
                         dockerImage.push("$currentBuild.number")
                         dockerImage.push("latest")
+                    }
 
                 }
             }
