@@ -21,6 +21,7 @@ spec:
     volumeMounts:
     - mountPath: /var/run/docker.sock
       name: docker-sock
+  - name
   volumes:
     - name: docker-sock
       hostPath:
@@ -83,7 +84,9 @@ spec:
             steps {
                 echo 'Deploying....'
                 script {
-                    sh "kubectl set image -n p3-space deployment/back-end-deployment back-end-deployment=$registry:$currentBuild.number"
+                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: '', namespace: 'p3-space', serverUrl: '') {
+                        sh "kubectl set image -n p3-space deployment/back-end-deployment back-end-deployment=$registry:$currentBuild.number"
+                    }
                 }
             }
         }
