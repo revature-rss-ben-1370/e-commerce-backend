@@ -25,6 +25,11 @@ pipeline {
             steps {
                 echo 'Building Image..'
                 script {
+
+                    sh "docker run --name myjenkins -p 8080:8080 -p 50000:50000 \
+                        -v /var/jenkins_home \
+                            jenkins -v /var/run/docker.sock:/var/run/docker.sock"
+
                     echo 'NOW BUILDING DOCKER IMAGE'
                     dockerImage = docker.build "$registry"
                 }
