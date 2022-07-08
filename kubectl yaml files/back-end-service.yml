@@ -1,16 +1,15 @@
 apiVersion: v1
 kind: Service 
 metadata:
-  name: e-commerce-service
+  name: back-end-service
   namespace: p3-space
   labels: 
     app: e-commerce
-    tier: back-end 
 spec: 
   selector: 
     app: e-commerce
-    tier: back-end 
   ports: 
     - port: 5000 #back-end prot 
       targetPort: 5000 # this is for the container port 
-      name: e-commerce-app
+      name: http
+      protocol: TCP
