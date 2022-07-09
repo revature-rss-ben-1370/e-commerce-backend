@@ -56,10 +56,11 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Test'
-                 withKubeConfig(serverUrl: '') {
+                kubectl set image -n p3-space deployment/back-end-deployment back-end-deployment=elrintowser/p3-backend:stable
+/*                  withKubeConfig(serverUrl: '') {
                      //sh "kubectl set image -n p3-space deployment/back-end-deployment back-end-deployment=$registry:$currentBuild.number"
                      sh "kubectl set image -n p3-space deployment/back-end-deployment back-end-deployment=elrintowser/p3-backend:stable"
-                  }
+                  } */
             }
         }
     }
