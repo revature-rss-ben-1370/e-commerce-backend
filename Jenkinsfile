@@ -28,13 +28,15 @@ pipeline {
             agent{
                 label "jenkins-agent-docker"
             }
-            steps {
-                echo 'Building Image..'
-                script {
-                    echo 'NOW BUILDING DOCKER IMAGE'
-                    dockerImage = docker.build "$registry"
+            container('jnlp-docker') {
+                steps {
+                    echo 'Building Image..'
+                    script {
+                        echo 'NOW BUILDING DOCKER IMAGE'
+                        dockerImage = docker.build "$registry"
+                    }
                 }
-             }
+            }
         }
         stage('Pushing Docker Image') {
             steps {
