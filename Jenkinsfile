@@ -22,7 +22,7 @@ spec:
     - mountPath: /var/run/docker.sock
       name: docker-sock
   - name: maven
-    image: 3.8.6-openjdk-11
+    image: maven:3.8.6-openjdk-11
     command:
     - cat
     tty: true
