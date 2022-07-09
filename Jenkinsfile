@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Build') {
             agent {
-                label "jenkins-jenkins-agent maven"
+                label "jenkins-agent-maven"
             }
             steps {
                 echo 'Building..'
@@ -26,7 +26,7 @@ pipeline {
         }        
         stage('Building Docker Image') {
             agent {
-                label "jenkins-jenkins-agent docker"
+                label "jenkins-agent-docker"
             }
                 steps {
                         echo 'Building Image..'
