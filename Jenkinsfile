@@ -25,6 +25,9 @@ pipeline {
             }
         }        
         stage('Building Docker Image') {
+            agent{
+                label "jenkins-agent-docker"
+            }
                 steps {
                     container('jenkins-agent-docker'){
                         echo 'Building Image..'
