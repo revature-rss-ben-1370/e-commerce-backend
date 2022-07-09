@@ -28,8 +28,8 @@ pipeline {
             agent{
                 label "jenkins-agent-docker"
             }
-            container('jnlp-docker') {
-                steps {
+            steps {
+                container('jnlp-docker') {
                     echo 'Building Image..'
                     script {
                         echo 'NOW BUILDING DOCKER IMAGE'
