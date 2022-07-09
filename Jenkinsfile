@@ -2,38 +2,8 @@ pipeline {
     agent {
         kubernetes {
           label 'idk'
-          defaultContainer 'jnlp'
-          yaml """
-apiVersion: v1
-kind: Pod
-metadata:
-labels:
-  component: ci
-spec:
-  # Use service account that can deploy to all namespaces
-  serviceAccountName: jenkins
-  containers:
-  - name: docker
-    image: docker:latest
-    command:
-    - cat
-    tty: true
-    volumeMounts:
-    - mountPath: /var/run/docker.sock
-      name: docker-sock
-  - name: maven
-    image: maven:3.8.6-openjdk-11
-    command:
-    - cat
-    tty: true
-    imagePullPolicy: Always
-
-  volumes:
-    - name: docker-sock
-      hostPath:
-        path: /var/run/docker.sock
-"""
-}
+          yamlFile 'pipeline-pod.yml'
+        }
     }
     environment {
         registry = 'elrintowser/p3-backend'
