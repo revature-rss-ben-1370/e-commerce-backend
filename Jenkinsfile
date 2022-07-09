@@ -53,14 +53,16 @@ pipeline {
     //                 }
     //         }
     //     }
-        stage('Deploy') {
-            steps {
-                echo 'Test'
-                withKubeConfig() {
-                    // sh 'kubectl apply -f e-commerce-back-end-deployment.yml -n p3-space'
-                    sh 'kubectl get pods'
+    podTemplate(inheritFrom: 'default') {
+            stage('Deploy') {
+                steps {
+                    echo 'Test'
+                    withKubeConfig() {
+                        // sh 'kubectl apply -f e-commerce-back-end-deployment.yml -n p3-space'
+                        sh 'kubectl get pods'
+                    }
+                    
                 }
-                
             }
         }
     }
