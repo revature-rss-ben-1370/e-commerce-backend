@@ -56,7 +56,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Test'
-                kubectl apply -f e-commerce-back-end-deployment.yml -n p3-space
+                sh kubectl apply -f e-commerce-back-end-deployment.yml -n p3-space
 /*                  withKubeConfig(serverUrl: '') {
                      //sh "kubectl set image -n p3-space deployment/back-end-deployment back-end-deployment=$registry:$currentBuild.number"
                      sh "kubectl set image -n p3-space deployment/back-end-deployment back-end-deployment=elrintowser/p3-backend:stable"
