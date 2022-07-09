@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Build') {
             agent {
-                label "maven"
+                label "jenkins-jenkins-agent maven"
             }
             steps {
                 echo 'Building..'
