@@ -44,8 +44,8 @@ spec:
 
     stages {
         stage('Build') {
-            container('maven'){
-                steps {
+            steps {
+                container('maven'){
                     echo 'Building..'
                     sh "export DB_PLATFORM=org.hibernate.dialect.H2Dialect"
                     sh "export DB_URL=jdbc:h2:mem:test;MODE=PostgreSQL"
@@ -53,6 +53,7 @@ spec:
                     sh "mvn package"
                 }
             }
+
         }
         stage('Test') {
             steps {
