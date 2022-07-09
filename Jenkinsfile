@@ -7,23 +7,23 @@ pipeline {
     }
 
     stages {
-        // stage('Build') {
-        //     agent {
-        //         label "jenkins-agent-maven"
-        //     }
-        //     steps {
-        //         echo 'Building..'
-        //         sh "export DB_PLATFORM=org.hibernate.dialect.H2Dialect"
-        //         sh "export DB_URL=jdbc:h2:mem:test;MODE=PostgreSQL"
-        //         sh "export DB_DRIVER=org.h2.Driver"
-        //         sh "mvn package"
-        //     }
-        // }
-        // stage('Test') {
-        //     steps {
-        //         echo 'Testing..'
-        //     }
-        // }        
+        stage('Build') {
+            agent {
+                label "jenkins-agent-maven"
+            }
+            steps {
+                echo 'Building..'
+                sh "export DB_PLATFORM=org.hibernate.dialect.H2Dialect"
+                sh "export DB_URL=jdbc:h2:mem:test;MODE=PostgreSQL"
+                sh "export DB_DRIVER=org.h2.Driver"
+                sh "mvn package"
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }        
         stage('Building Docker Image') {
             agent{
                 label "jenkins-agent-docker"
@@ -32,7 +32,7 @@ pipeline {
                 echo 'Building Image..'
                 script {
                     echo 'NOW BUILDING DOCKER IMAGE'
-                    dockerImage = docker.build("$registry", "")
+                    dockerImage = docker.build "$registry"
                 }
              }
         }
