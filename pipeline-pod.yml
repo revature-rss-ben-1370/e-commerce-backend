@@ -21,7 +21,7 @@ spec:
       tty: true
       imagePullPolicy: Always
     - name: kubectl
-      image: bitnami/kubectl:latest
+      image: bitnami/kubectl:1.22
       command:
         - cat
       tty: true
