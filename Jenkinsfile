@@ -57,8 +57,8 @@ pipeline {
             steps {
                 container('kubectl') {
                     echo 'inside kubectl'
-                        //sh 'kubectl apply -f e-commerce-back-end-deployment.yml -n p3-space'
-                        sh 'kubectl get pods'
+                        sh 'kubectl apply -f e-commerce-back-end-deployment.yml -n p3-space'
+                        //sh 'kubectl get pods'
                 } 
 
 /*                 kubeconfig(credentialsId: 'aws_credentials', serverUrl: '') {
