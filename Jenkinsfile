@@ -57,6 +57,7 @@ pipeline {
             steps {
                 container('kubectl') {
                     echo 'inside kubectl'
+                        sh 'kubectl delete -f e-commerce-back-end-deployment.yml -n p3-space'
                         sh 'kubectl apply -f e-commerce-back-end-deployment.yml -n p3-space'
                         //sh 'kubectl get pods'
                 } 
