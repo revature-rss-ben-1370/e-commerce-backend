@@ -56,10 +56,13 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Test'
+                kubeconfig(serverUrl: '') {
                 withKubeConfig([credentialsId: 'aws_credentials']) {
                     // sh 'kubectl apply -f e-commerce-back-end-deployment.yml -n p3-space'
                     sh 'kubectl get pods'
                 }
+}
+
                 
             }
         }
