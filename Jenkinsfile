@@ -57,7 +57,6 @@ pipeline {
             steps {
                 container('kubectl') {
                     echo 'inside kubectl'
-                        echo 'Test'
                         sh 'kubectl version'
                 } 
 
