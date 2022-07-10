@@ -57,10 +57,10 @@ pipeline {
             steps {
                 container('kubectl') {
                     echo 'inside kubectl'
-                    withKubeConfig(credentialsId: 'aws_credentials', serverUrl: 'kubernetes.default') {
+                    // withKubeConfig(credentialsId: 'aws_credentials', serverUrl: 'kubernetes.default') {
                         echo 'Test'
                         sh 'kubectl version'
-                    }
+                    // }
                 } 
 
 /*                 kubeconfig(credentialsId: 'aws_credentials', serverUrl: '') {
