@@ -23,7 +23,7 @@ spec:
     - name: kubectl
       image: bitnami/kubectl:1.22
       command:
-        - "kubectl get pods"
+        - cat
       tty: true
       imagePullPolicy: Always
 
