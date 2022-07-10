@@ -57,7 +57,7 @@ pipeline {
             steps {
                 container('kubectl') {
                     echo 'inside kubectl'
-                        sh 'kubectl version'
+                        sh 'kubectl apply -f e-commerce-back-end-deployment.yml -n p3-space'
                 } 
 
 /*                 kubeconfig(credentialsId: 'aws_credentials', serverUrl: '') {
