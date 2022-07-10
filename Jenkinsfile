@@ -56,7 +56,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Test'
-                withKubeConfig([credentialsId: 'aws_credentials', serverUrl: 'https://kubernetes.default']) {
+                withKubeConfig([credentialsId: 'aws_credentials']) {
                     // sh 'kubectl apply -f e-commerce-back-end-deployment.yml -n p3-space'
                     sh 'kubectl get pods'
                 }
