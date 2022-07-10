@@ -56,9 +56,11 @@ pipeline {
         stage('Deploy') {
             steps {
                 container('kubectl') {
-                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'aws_credentials', namespace: '', serverUrl: 'https://kubernetes.default')
+                    echo 'inside kubectl'
+                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'aws_credentials', namespace: '', serverUrl: 'https://kubernetes.default') {
                         echo 'Test'
                         sh 'kubectl version'
+                    }
                 } 
 
 /*                 kubeconfig(credentialsId: 'aws_credentials', serverUrl: '') {
