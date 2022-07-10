@@ -4,7 +4,7 @@ metadata:
 labels:
   component: ci
 spec:
-  serviceAccountName: jenkins
+  serviceAccountName: jenkins-deploy
   containers:
     - name: docker
       image: docker:latest
