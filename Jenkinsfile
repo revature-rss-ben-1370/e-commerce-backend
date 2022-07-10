@@ -55,10 +55,12 @@ pipeline {
 //         }
         stage('Deploy') {
             steps {
-                container('kubectl'){
-                    echo 'Test'
-                    sh 'kubectl version'
+                container('kubectl') {
+                    withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'aws_credentials', namespace: '', serverUrl: 'https://kubernetes.default')
+                        echo 'Test'
+                        sh 'kubectl version'
                 }
+
 /*                 kubeconfig(credentialsId: 'aws_credentials', serverUrl: '') {
                 withKubeConfig([credentialsId: 'aws_credentials']) {
                     // sh 'kubectl apply -f e-commerce-back-end-deployment.yml -n p3-space'
