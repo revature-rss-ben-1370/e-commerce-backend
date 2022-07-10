@@ -55,15 +55,16 @@ pipeline {
     //     }
         stage('Deploy') {
             steps {
-                echo 'Test'
-                kubeconfig(credentialsId: 'aws_credentials', serverUrl: '') {
+                container('kubectl'){
+                    echo 'Test'
+                    sh 'kubectl get pods'
+                }
+/*                 kubeconfig(credentialsId: 'aws_credentials', serverUrl: '') {
                 withKubeConfig([credentialsId: 'aws_credentials']) {
                     // sh 'kubectl apply -f e-commerce-back-end-deployment.yml -n p3-space'
                     sh 'kubectl get pods'
                 }
-}
-
-                
+} */
             }
         }
     }

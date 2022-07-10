@@ -20,6 +20,12 @@ spec:
         - cat
       tty: true
       imagePullPolicy: Always
+    - name: kubectl
+      image: bitnami/kubectl:latest
+      command:
+        - cat
+      tty: true
+      imagePullPolicy: Always
 
   volumes:
     - name: docker-sock
