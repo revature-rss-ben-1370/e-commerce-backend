@@ -57,7 +57,7 @@ pipeline {
             steps {
                 container('kubectl'){
                     echo 'Test'
-                    $PATH
+                    sh $PATH
                     script{
                         sh 'kubectl version'
                     }
