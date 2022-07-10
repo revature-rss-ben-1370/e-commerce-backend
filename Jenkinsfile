@@ -57,10 +57,9 @@ pipeline {
             steps {
                 container('kubectl'){
                     echo 'Test'
-                    sh echo 'test1'
-                    sh $PATH
                     script{
-                        sh 'kubectl version'
+                        sh echo 'test1'
+                        sh $PATH
                     }
                 }
 /*                 kubeconfig(credentialsId: 'aws_credentials', serverUrl: '') {
