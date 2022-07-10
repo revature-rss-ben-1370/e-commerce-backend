@@ -56,7 +56,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 container('kubectl'){
-                    ls
+                    echo 'Test'
                     sh 'kubectl version'
                 }
 /*                 kubeconfig(credentialsId: 'aws_credentials', serverUrl: '') {
