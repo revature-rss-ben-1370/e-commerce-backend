@@ -23,7 +23,7 @@ spec:
     - name: kubectl
       image: bitnami/kubectl:latest
       command:
-        - cat
+        - echo 'test'
       tty: true
       imagePullPolicy: Always
 
