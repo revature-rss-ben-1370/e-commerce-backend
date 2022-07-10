@@ -59,7 +59,7 @@ pipeline {
                     withKubeConfig(caCertificate: '', clusterName: '', contextName: '', credentialsId: 'aws_credentials', namespace: '', serverUrl: 'https://kubernetes.default')
                         echo 'Test'
                         sh 'kubectl version'
-                }
+                } 
 
 /*                 kubeconfig(credentialsId: 'aws_credentials', serverUrl: '') {
                 withKubeConfig([credentialsId: 'aws_credentials']) {
