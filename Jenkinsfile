@@ -5,7 +5,7 @@ node {
   stage('SonarQube Analysis') {
     def scannerHome = tool 'Sonar-Scanner';
     withSonarQubeEnv('sonarserver') {
-      sh "${scannerHome}/bin/sonar-scanner"
+      sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=havgin"
     }
   }
 }
