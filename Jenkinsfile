@@ -17,7 +17,7 @@ pipeline {
             steps {
                 container('kubectl') {
                     script{
-                        liveBranch = sh(script:'kubectl get svc back-end-service -n bg -o=jsonpath='{.spec.selector.color}'', returnStdout:true).trim()
+                        liveBranch = sh(script:'kubectl get svc back-end-service -n bg -o=jsonpath='"'"'{.spec.selector.color}'"'"'', returnStdout:true).trim()
                         if (liveBranch.equals("blue")) {
                                 newColor = "green"
                         } else {
