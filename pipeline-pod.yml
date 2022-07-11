@@ -27,7 +27,7 @@ spec:
       tty: true
       imagePullPolicy: Always
     - name: k6
-      image: grafana/k6:latest
+      image: loadimpact/6:latest
       command:
         - cat
       tty: true

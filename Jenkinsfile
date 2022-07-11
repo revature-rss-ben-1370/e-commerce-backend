@@ -80,19 +80,14 @@ pipeline {
 
         stage('smoke-test'){
             steps {
-                // container('k6'){
-                //     sh 'k6 run smoke-test.js'
-                // }
-                echo 'Performing smoke test'
-                sh 'sudo chmod +x setup_k6.sh'
-                sh 'sudo ./setup_k6.sh'
-                sh 'k6 run smoke-test.js'
+                container('k6'){
+                    sh 'k6 run smoke-test.js'
+                }
             }
         }
 
         stage('Production Approve Request'){
             steps {
-                echo 'test'
                 script {
                     try {
                         approved = input message: 'Deploy to production?', ok: 'Continue',
