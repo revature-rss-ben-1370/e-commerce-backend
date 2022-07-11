@@ -43,6 +43,8 @@ pipeline {
                     echo 'Building Image..'
                     script {
                         echo 'NOW BUILDING DOCKER IMAGE'
+                        sh 'ls -l'
+                        sh 'ls /target -l'
                         dockerImage = docker.build "$registry"
                     }
                 }
