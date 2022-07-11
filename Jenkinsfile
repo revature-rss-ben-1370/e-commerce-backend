@@ -82,7 +82,7 @@ pipeline {
             steps {
                 container('k6'){
                     script{ 
-                        sh 'k6 k6 version'
+                        sh 'k6 version'
                     }
                 }
             }
