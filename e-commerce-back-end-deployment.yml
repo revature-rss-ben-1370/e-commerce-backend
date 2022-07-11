@@ -5,7 +5,6 @@ metadata:
   namespace: p3-space  
   labels: 
     app: e-commerce
-
 spec: # Specifications for the Deployment!
   replicas: 1
   minReadySeconds: 5

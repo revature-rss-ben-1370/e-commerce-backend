@@ -61,12 +61,12 @@ pipeline {
                 }
             }
         }
-        stage('smoke-test'){
-            steps {
-                container('k6'){
-                    sh 'k6 run smoke-test.js'
-                }
-            }
-        }
+//         stage('smoke-test'){
+//             steps {
+//                 container('k6'){
+//                     sh 'k6 run smoke-test.js'
+//                 }
+//             }
+//         }
     }
 }
