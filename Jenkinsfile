@@ -27,59 +27,53 @@ pipeline {
                 }
             }
         }
-        // stage('Build') {
-        //     steps {
-        //         container('maven'){
-        //             echo 'Building..'
-        //             sh "export DB_PLATFORM=org.hibernate.dialect.H2Dialect"
-        //             sh "export DB_URL=jdbc:h2:mem:test;MODE=PostgreSQL"
-        //             sh "export DB_DRIVER=org.h2.Driver"
-        //             sh "mvn package"
-        //         }
-        //     }
-        // }
-        // stage('Test') {
-        //     steps {
-        //         echo 'Testing..'
-        //     }
-        // }
-        // stage('Building Docker Image') {
-        //     steps {
-        //         container('docker') {
-        //             echo 'Building Image..'
-        //             script {
-        //                 echo 'NOW BUILDING DOCKER IMAGE'
-        //                 sh 'ls -l'
-        //                 sh 'ls ./target -l'
-        //                 sh 'chmod 777 ./target/e-commerce-1.0.jar'
-        //                 dockerImage = docker.build "$registry"
-        //             }
-        //         }
-        //     }
-        // }
-        // stage('Pushing Docker Image') {
-        //     steps {
-        //         container('docker') {
-        //             echo 'Pushing..'
-        //                 script {
-        //                     echo "NOW PUSHING TO DOCKER HUB"
-        //                     docker.withRegistry('', dockerHubCredentials){
-        //                         dockerImage.push("$currentBuild.number")
-        //                         dockerImage.push("latest")
-        //                     }
-        //                 }
-        //             }
-        //     }
-        // }
+        stage('Build') {
+            steps {
+                container('maven'){
+                    echo 'Building..'
+                    sh "export DB_PLATFORM=org.hibernate.dialect.H2Dialect"
+                    sh "export DB_URL=jdbc:h2:mem:test;MODE=PostgreSQL"
+                    sh "export DB_DRIVER=org.h2.Driver"
+                    sh "mvn package"
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Building Docker Image') {
+            steps {
+                container('docker') {
+                    echo 'Building Image..'
+                    script {
+                        echo 'NOW BUILDING DOCKER IMAGE'
+                        dockerImage = docker.build "$registry"
+                    }
+                }
+            }
+        }
+        stage('Pushing Docker Image') {
+            steps {
+                container('docker') {
+                    echo 'Pushing..'
+                        script {
+                            echo "NOW PUSHING TO DOCKER HUB"
+                            docker.withRegistry('', dockerHubCredentials){
+                                dockerImage.push("$currentBuild.number")
+                                dockerImage.push("latest")
+                            }
+                        }
+                    }
+            }
+        }
         stage('Deploy') {
             steps {
                 container('kubectl') {
-                    echo "$liveBranch"
-                    echo "$newColor"
-                    // sh 'kubectl delete -f ./resources/back-end-deployment.yml -n p3-space'
-                    // sh 'kubectl apply -f ./resources/back-end-deployment-blue.yml -n p3-space'
+                    // echo "$liveBranch"
+                    // echo "$newColor"
                     sh "kubectl apply -f ./resources/back-end-deployment-$newColor" + ".yml -n bg"
-                    // sh 'kubectl apply -f ./resources/back-end-deployment-green.yml -n p3-space'
                 }
             }
         }
