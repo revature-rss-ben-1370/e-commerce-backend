@@ -18,10 +18,10 @@ pipeline {
                 container('kubectl') {
                     script{
                         liveBranch = "kubectl get svc back-end-service -n bg -o=jsonpath='{.spec.selector.color}'"
-                        if (liveBranch == "blue") {
-                                newColor = 'green'
+                        if (liveBranch.equals("blue")) {
+                                newColor = "green"
                         } else {
-                                newColor = 'blue'
+                                newColor = "blue"
                         }
                     }
                 }
