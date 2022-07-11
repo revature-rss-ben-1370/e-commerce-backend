@@ -3,8 +3,9 @@ node {
     checkout scm
   }
   stage('SonarQube Analysis') {
+    def mvn = tool 'Maven';
     withSonarQubeEnv('sonarserver') {
-      sh "mvn sonar:sonar"
+      sh "${mvn}/bin/mvn sonar:sonar"
     }
   }
 }
