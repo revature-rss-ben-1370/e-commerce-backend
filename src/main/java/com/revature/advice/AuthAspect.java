@@ -2,13 +2,16 @@ package com.revature.advice;
 
 import com.revature.annotations.Authorized;
 import com.revature.exceptions.NotLoggedInException;
+import com.revature.services.AuthServiceImpl;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.Optional;
 
 @Aspect
 @Component
@@ -45,11 +48,18 @@ public class AuthAspect {
     // return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorMessage);
     @Around("@annotation(authorized)")
     public Object authenticate(ProceedingJoinPoint pjp, Authorized authorized) throws Throwable {
-
-        HttpSession session = req.getSession(); // Get the session (or create one)
-
+        AuthServiceImpl aServe = new AuthServiceImpl();
+         // Get the session (or create one)
+        Optional<String> username = Arrays.stream(req.getCookies())
+                .filter(cookie->"user".equals(cookie.getName()))
+                .map(Cookie::getValue)
+                .findAny();
+        Optional<String> pass = Arrays.stream(req.getCookies())
+                .filter(cookie->"auth".equals(cookie.getName()))
+                .map(Cookie::getValue)
+                .findAny();
         // If the user is not logged in
-        if(session.getAttribute("user") == null) {
+        if(!username.isPresent() || !pass.isPresent() || (!aServe.findByCredentials(username.get(), pass.get()).isPresent())) {
             throw new NotLoggedInException("Must be logged in to perform this action");
         }
 
