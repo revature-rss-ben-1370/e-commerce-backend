@@ -16,7 +16,7 @@ pipeline {
             steps {
                 container{'kubectl'} {
                     script{
-                        liveBranch = 'kubectl get svc back-end-service -o=jsonpath=\'{.spec.selector.app}\''
+                        liveBranch = "kubectl get svc back-end-service -o=jsonpath='{.spec.selector.app}'"
                     }
                 }
             }
