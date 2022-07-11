@@ -7,6 +7,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CookieValue;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -47,19 +48,15 @@ public class AuthAspect {
     // String errorMessage = "Missing required role to perform this action";
     // return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorMessage);
     @Around("@annotation(authorized)")
-    public Object authenticate(ProceedingJoinPoint pjp, Authorized authorized) throws Throwable {
+    public Object authenticate(ProceedingJoinPoint pjp, Authorized authorized
+            , @CookieValue(name="user") String username
+            , @CookieValue(name="auth") String password) throws Throwable {
         AuthServiceImpl aServe = new AuthServiceImpl();
-         // Get the session (or create one)
-        Optional<String> username = Arrays.stream(req.getCookies())
-                .filter(cookie->"user".equals(cookie.getName()))
-                .map(Cookie::getValue)
-                .findAny();
-        Optional<String> pass = Arrays.stream(req.getCookies())
-                .filter(cookie->"auth".equals(cookie.getName()))
-                .map(Cookie::getValue)
-                .findAny();
+        //We now use cookies, not sessions!
+        
         // If the user is not logged in
-        if(!username.isPresent() || !pass.isPresent() || (!aServe.findByCredentials(username.get(), pass.get()).isPresent())) {
+        if(username == null || password == null 
+                || !aServe.findByCredentials(username, password).isPresent()) {
             throw new NotLoggedInException("Must be logged in to perform this action");
         }
 
