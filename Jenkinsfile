@@ -3,9 +3,8 @@ node {
     checkout scm
   }
   stage('SonarQube Analysis') {
-    def mvn = tool 'Maven';
     withSonarQubeEnv('sonarserver') {
-      sh "${mvn}/bin/mvn clean verify sonar:sonar"
+      sh "mvn sonar:sonar"
     }
   }
 }
