@@ -1,8 +1,8 @@
 #Distributable lightweight image for running the jar file
 FROM openjdk:11-jre
 
-WORKDIR ./target
+# WORKDIR ./target
 
 #EXPOSE 5000
 
-ENTRYPOINT [ "java", "-jar", "e-commerce-1.0.jar" ]
+ENTRYPOINT [ "java", "-jar", "./target/e-commerce-1.0.jar" ]
