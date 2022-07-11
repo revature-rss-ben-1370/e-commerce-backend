@@ -96,14 +96,16 @@ pipeline {
         stage('Production Approve Request'){
             steps {
                 echo 'test'
-                try {
-                    approved = input message: 'Deploy to production?', ok: 'Continue',
-                        parameters: [choice(name: 'approved', choices: 'Yes\nNo', description: 'Deploy this build to production')]
-                    if(approved != 'Yes'){
-                        error('Build not approved')
+                script {
+                    try {
+                        approved = input message: 'Deploy to production?', ok: 'Continue',
+                            parameters: [choice(name: 'approved', choices: 'Yes\nNo', description: 'Deploy this build to production')]
+                        if(approved != 'Yes'){
+                            error('Build not approved')
+                        }
+                    } catch (error){
+                        error('Build not approved in time')
                     }
-                } catch (error){
-                    error('Build not approved in time')
                 }
             }
         }
@@ -111,7 +113,9 @@ pipeline {
         stage('Deploy to Production') { //Switching service
             steps {
                 container('kubectl') {
-                    sh "kubectl patch -f ./resources/back-end-service.yml -p '{""spec"":{""selector"":{""color"":$newColor""}}}'"
+                    script {
+                        sh "kubectl patch -f ./resources/back-end-service.yml -p '{""spec"":{""selector"":{""color"":$newColor""}}}'"
+                    }
                 }
             }
         }
