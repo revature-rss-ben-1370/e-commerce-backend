@@ -31,7 +31,7 @@ spec:
       command:
         - cat
       tty: true
-      imagePullPolicy: always
+      imagePullPolicy: Always
 
   volumes:
     - name: docker-sock
