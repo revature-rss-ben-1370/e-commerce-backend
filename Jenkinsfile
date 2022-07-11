@@ -12,7 +12,7 @@ pipeline {
         liveBranch = ''
     }
     stages {
-        stage{'Obtain live branch'} {
+        stage('Obtain live branch') {
             steps {
                 container{'kubectl'} {
                     script{
