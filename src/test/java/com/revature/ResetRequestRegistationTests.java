@@ -53,16 +53,16 @@ public class ResetRequestRegistationTests {
 
     @Test
     void findEmailAuthorizeTest(){
-        // Assertions.assertTrue(authService.forgotPassword("testuser@gmail.com"));
+       // Assertions.assertTrue(authService.forgotPassword("testuser@gmail.com"));
     }
 
     @Test
     void resetRequestControllerTest(){
         ResetRequestEmail request = new ResetRequestEmail("testuser@gmail.com");
-       // Assertions.assertTrue(authController.passwordResetRequest(request));
+        //Assertions.assertTrue(authController.passwordResetRequest(request));
     }
     @Test void sendEmailTest() {
-        userService.sendEmail("testuser@gmail.com",1);
+        //userService.sendEmail("testuser@gmail.com",1);
     }
 
     @Test void findResetPasswordTest(){

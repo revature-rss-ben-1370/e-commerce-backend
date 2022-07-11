@@ -1,18 +1,20 @@
 server:
   port: 5000
 spring:
+  sql.init.mode: always
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    database-platform: org.hibernate.dialect.H2Dialect
+      ddl-auto: update
+    database-platform: ${DB_PLATFORM} #org.hibernate.dialect.PostgreSQLDialect 
     defer-datasource-initialization: true
   datasource:
-    url: jdbc:h2:mem:memdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: password
-  h2:
-    console.enabled: true
+    #platform: postgres # might change to postgresql # !ENV ${DATASOURCE_PLATFORM}
+    url: ${DB_URL} #jdbc:postgresql://db-service.p3-space.svc.cluster.local:5432/postgres?user=postgres&password=example
+
+    driver-class-name: ${DB_DRIVER} #org.postgresql.Driver 
+    username: postgres
+    password: example
+    initialization-mode: always
 
   mail:
     properties:
@@ -22,6 +24,15 @@ spring:
             enable: 'true'
           auth: 'true'
     host: smtp.gmail.com
-    username: ${LOCALEMAIL}
-    password: ${EMAILPASSWORD}
+    username: p3applicationmail777@gmail.com
+    password: rbi5p8qEqZWTXiQ
     port: '587'
+
+management:
+  endpoints:
+    web:
+      base-path: "/"
+      path-mapping:
+        prometheus: "metrics"
+      exposure:
+        include: "health,prometheus,info"

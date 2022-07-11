@@ -4,10 +4,12 @@ metadata:
   name: back-end-service
   namespace: p3-space
   labels: 
-    app: back-end 
+    app: e-commerce
 spec: 
   selector: 
-    app: back-end 
+    app: e-commerce
   ports: 
     - port: 5000 #back-end prot 
       targetPort: 5000 # this is for the container port 
+      name: http
+      protocol: TCP
