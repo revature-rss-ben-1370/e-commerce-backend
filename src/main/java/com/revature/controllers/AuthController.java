@@ -39,18 +39,18 @@ public class AuthController{
 
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response){
-        Optional<User> optional = authService.findByCredentials(loginRequest.getEmail(), loginRequest.getPassword());
+        Optional<User> optionalUser = authService.findByCredentials(loginRequest.getEmail(), loginRequest.getPassword());
 
-        if (!optional.isPresent()) {
+        if (!optionalUser.isPresent()) {
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        Cookie username = new Cookie("user", optional.get().getEmail());
-        Cookie pass = new Cookie("auth", optional.get().getPassword());
+        Cookie username = new Cookie("user", optionalUser.get().getEmail());
+        Cookie pass = new Cookie("auth", loginRequest.getPassword());
         response.addCookie(username);
         response.addCookie(pass);
 
-        return ResponseEntity.status(HttpStatus.OK).body(optional.get());
+        return ResponseEntity.status(HttpStatus.OK).body(optionalUser.get());
     }
 
     @PostMapping("/logout")
