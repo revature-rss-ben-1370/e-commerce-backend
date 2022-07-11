@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment 
 metadata: 
   name: back-end-deployment 
-  namespace: p3-space  
+  namespace: bg  
   labels: 
     app: e-commerce
 
