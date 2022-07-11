@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Obtain live branch') {
             steps {
-                container{'kubectl'} {
+                container('kubectl') {
                     script{
                         liveBranch = "kubectl get svc back-end-service -n bg -o=jsonpath='{.spec.selector.color}'"
                         if (liveBranch == 'blue') {
