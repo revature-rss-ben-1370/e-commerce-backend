@@ -29,9 +29,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<properties>
-  		<sonar.buildString>sonar.scanner.metadataFilePath</sonar.buildString>
-		</properties>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
