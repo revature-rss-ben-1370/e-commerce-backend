@@ -114,7 +114,7 @@ pipeline {
             steps {
                 container('kubectl') {
                     script {
-                        sh "kubectl patch -f ./resources/back-end-service.yml -p '{""spec"":{""selector"":{""color"":$newColor""}}}'"
+                        sh 'kubectl patch -f ./resources/back-end-service.yml -p ' + '{"spec":{"selector":{"color":"' + "$newColor" + '"' + "}}}'"  
                     }
                 }
             }
