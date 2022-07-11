@@ -1,7 +1,7 @@
 #Distributable lightweight image for running the jar file
 FROM openjdk:11-jre
 
-WORKDIR /target
+WORKDIR ./target
 
 #EXPOSE 5000
 
