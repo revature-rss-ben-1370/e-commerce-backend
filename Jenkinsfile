@@ -95,6 +95,7 @@ pipeline {
 
         stage('Production Approve Request'){
             steps {
+                echo 'test'
                 try {
                     approved = input message: 'Deploy to production?', ok: 'Continue',
                         parameters: [choice(name: 'approved', choices: 'Yes\nNo', description: 'Deploy this build to production')]
