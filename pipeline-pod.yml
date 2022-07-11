@@ -27,7 +27,7 @@ spec:
       tty: true
       imagePullPolicy: Always
     - name: k6
-      image: loadimpact/6:latest
+      image: loadimpact/k6:latest
       command:
         - cat
       tty: true
