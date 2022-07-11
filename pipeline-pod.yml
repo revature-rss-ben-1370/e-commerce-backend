@@ -26,6 +26,12 @@ spec:
         - cat
       tty: true
       imagePullPolicy: Always
+    - name: k6
+      image: grafana/k6:latest
+      command:
+        - cat
+      tty: true
+      imagePullPolicy: always
 
   volumes:
     - name: docker-sock
