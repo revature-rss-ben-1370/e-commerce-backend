@@ -82,7 +82,10 @@ pipeline {
             steps {
                 container('k6'){
                     script{ 
+                        sh 'su chmod +x setup_k6.sh'
+                        sh 'su ./setup_k6.sh'
                         sh 'k6 version'
+                        
                     }
                 }
             }
