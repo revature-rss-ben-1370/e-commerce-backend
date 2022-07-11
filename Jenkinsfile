@@ -81,7 +81,9 @@ pipeline {
         stage('smoke-test'){
             steps {
                 container('k6'){
-                    sh 'k6 run smoke-test.js'
+                    script{ 
+                        sh 'k6 run smoke-test.js'
+                    }
                 }
             }
         }
