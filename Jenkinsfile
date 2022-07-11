@@ -61,7 +61,13 @@ pipeline {
                         sh 'kubectl apply -f e-commerce-back-end-deployment.yml -n p3-space'
                         //sh 'kubectl get pods'
                 } 
-
+        stage('smoke-test'){
+            steps {
+                container('k6'){
+                    sh 'run smoke-test.js'
+                }
+            }
+        }
 /*                 kubeconfig(credentialsId: 'aws_credentials', serverUrl: '') {
                 withKubeConfig([credentialsId: 'aws_credentials']) {
                     // sh 'kubectl apply -f e-commerce-back-end-deployment.yml -n p3-space'
