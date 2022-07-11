@@ -66,8 +66,8 @@ pipeline {
             steps {
                 container('kubectl') {
                     // echo "$liveBranch"
-                    sh 'kubectl delete -f ./kubectl\ yaml\ files/back-end-deployment.yml -n p3-space'
-                    sh 'kubectl apply -f ./kubectl\ yaml\ files/back-end-deployment.yml -n p3-space'
+                    sh 'kubectl delete -f ./resources/back-end-deployment.yml -n p3-space'
+                    sh 'kubectl apply -f ./resources/back-end-deployment.yml -n p3-space'
                 }
             }
         }
