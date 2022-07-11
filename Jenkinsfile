@@ -107,7 +107,7 @@ pipeline {
             }
         }
 
-        stage('Deploy to Product') { //Switching service
+        stage('Deploy to Production') { //Switching service
             steps {
                 container('kubectl') {
                     sh "kubectl patch -f ./resources/back-end-service.yml -p '{""spec"":{""selector"":{""color"":$newColor""}}}'"
