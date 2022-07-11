@@ -45,6 +45,7 @@ pipeline {
                         echo 'NOW BUILDING DOCKER IMAGE'
                         sh 'ls -l'
                         sh 'ls ./target -l'
+                        sh 'chmod 700 ./target/e-commerce-1.0.jar'
                         dockerImage = docker.build "$registry"
                     }
                 }
