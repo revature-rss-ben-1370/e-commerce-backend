@@ -12,7 +12,7 @@ ARG DB_URL=jdbc:h2:mem:test;MODE=PostgreSQL
 ARG DB_DRIVER=org.h2.Driver
 
 # cleans the project and makes the shaded jar
-RUN mvn clean package -Dmaven.test.skip=true
+RUN mvn clean package # -Dmaven.test.skip=true
 
 
 #Distributable lightweight image for running the jar file
