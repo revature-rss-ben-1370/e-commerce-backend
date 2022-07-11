@@ -37,5 +37,8 @@ spec: # Specifications for the Deployment!
           imagePullPolicy: Always
           resources:
             limits:
-              memory: "2Gi"
+              memory: "500Mi"
               cpu: "500m"
+            requests:
+              memory: "300Mi"
+              cpu: "200m"
