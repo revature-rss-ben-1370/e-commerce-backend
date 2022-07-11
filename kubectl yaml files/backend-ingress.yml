@@ -10,10 +10,10 @@ metadata:
     nginx.ingress.kubernetes.io/session-cookie-name: "stickounet"
     nginx.ingress.kubernetes.io/session-cookie-expires: "172800"
     nginx.ingress.kubernetes.io/session-cookie-max-age: "172800"
+    #nginx.ingress.kubernetes.io/session-cookie-path: "/e-commerce/cookie"
 spec:
   ingressClassName: nginx
   rules:
-    - host: http://a24b3e0b0313345e49eb2e69fe33a185-35174312.us-east-1.elb.amazonaws.com
     - http:
         paths:
           - pathType: Prefix

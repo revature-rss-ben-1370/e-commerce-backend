@@ -6,6 +6,7 @@ metadata:
   labels: 
     app: e-commerce
 spec: 
+  sessionAffinity: ClientIP
   selector: 
     app: e-commerce
   ports: 
