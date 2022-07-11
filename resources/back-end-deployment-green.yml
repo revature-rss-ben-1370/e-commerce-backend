@@ -17,10 +17,12 @@ spec: # Specifications for the Deployment!
   selector: 
     matchLabels: 
       app: e-commerce
+      color: green
   template: 
     metadata: 
       labels: 
         app: e-commerce
+        color: green
     spec: # specification for the pod itself now!
       containers: 
         - name: back-end-deployment

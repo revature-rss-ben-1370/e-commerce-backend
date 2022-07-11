@@ -70,7 +70,8 @@ pipeline {
                 container('kubectl') {
                     // echo "$liveBranch"
                     sh 'kubectl delete -f ./resources/back-end-deployment.yml -n p3-space'
-                    sh 'kubectl apply -f ./resources/back-end-deployment.yml -n p3-space'
+                    sh 'kubectl apply -f ./resources/back-end-deployment-blue.yml -n p3-space'
+                    sh 'kubectl apply -f ./resources/back-end-deployment-green.yml -n p3-space'
                 }
             }
         }
