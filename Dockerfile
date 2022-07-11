@@ -5,4 +5,4 @@ FROM openjdk:11-jre
 COPY ./target/e-commerce-1.0.jar e-commerce-1.0.jar
 #EXPOSE 5000
 
-ENTRYPOINT [ "java", "-jar", "./target/e-commerce-1.0.jar" ]
+ENTRYPOINT [ "java", "-jar", "e-commerce-1.0.jar" ]
