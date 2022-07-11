@@ -83,7 +83,10 @@ pipeline {
                 // container('k6'){
                 //     sh 'k6 run smoke-test.js'
                 // }
-                echo 'doing smoke test'
+                echo 'Performing smoke test'
+                sh 'sudo chmod +x setup_k6.sh'
+                sh 'sudo ./setup_k6.sh'
+                sh 'k6 run smoke-test.js'
             }
         }
 
