@@ -13,20 +13,20 @@ pipeline {
         newColor = ''
     }
     stages {
-        stage('Obtain live branch') {
-            steps {
-                container('kubectl') {
-                    script{
-                        liveBranch = sh(script:"kubectl get svc back-end-service -n bg -o=jsonpath='{.spec.selector.color}'", returnStdout:true).trim()
-                        if (liveBranch.equals("blue")) {
-                                newColor = "green"
-                        } else {
-                                newColor = "blue"
-                        }
-                    }
-                }
-            }
-        }
+        // stage('Obtain live branch') {
+        //     steps {
+        //         container('kubectl') {
+        //             script{
+        //                 liveBranch = sh(script:"kubectl get svc back-end-service -n bg -o=jsonpath='{.spec.selector.color}'", returnStdout:true).trim()
+        //                 if (liveBranch.equals("blue")) {
+        //                         newColor = "green"
+        //                 } else {
+        //                         newColor = "blue"
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         // stage('Build') {
         //     steps {
         //         container('maven'){
@@ -68,21 +68,21 @@ pipeline {
         //             }
         //     }
         // }
-        stage('Deploy') {
-            steps {
-                container('kubectl') {
-                    // echo "$liveBranch"
-                    // echo "$newColor"
-                    sh "kubectl apply -f ./resources/back-end-deployment-$newColor" + ".yml -n bg"
-                }
-            }
-        }
+        // stage('Deploy') {
+        //     steps {
+        //         container('kubectl') {
+        //             // echo "$liveBranch"
+        //             // echo "$newColor"
+        //             sh "kubectl apply -f ./resources/back-end-deployment-$newColor" + ".yml -n bg"
+        //         }
+        //     }
+        // }
 
         stage('smoke-test'){
             steps {
                 container('k6'){
                     script{ 
-                        sh 'k6 run smoke-test.js'
+                        sh 'k6 k6 version'
                     }
                 }
             }
