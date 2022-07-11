@@ -2,12 +2,13 @@ apiVersion: v1
 kind: Service 
 metadata:
   name: back-end-service
-  namespace: p3-space
+  namespace: bg
   labels: 
     app: e-commerce
 spec: 
   selector: 
     app: e-commerce
+    color: "green"
   ports: 
     - port: 5000 #back-end prot 
       targetPort: 5000 # this is for the container port 

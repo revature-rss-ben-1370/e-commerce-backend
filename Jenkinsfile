@@ -83,12 +83,34 @@ pipeline {
                 }
             }
         }
-//         stage('smoke-test'){
-//             steps {
-//                 container('k6'){
-//                     sh 'k6 run smoke-test.js'
-//                 }
-//             }
-//         }
+
+        stage('smoke-test'){
+            steps {
+                // container('k6'){
+                //     sh 'k6 run smoke-test.js'
+                // }
+                echo 'doing smoke test'
+            }
+        }
+
+        stage('Production Approve Request'){
+            steps {
+                try {
+                    approved = input message: 'Deploy to production?', ok: 'Continue',
+                        parameters: [choice(name: 'approved', choices: 'Yes\nNo', description: 'Deploy this build to production')]
+                    if(approved != 'Yes'){
+                        error('Build not approved')
+                    }
+                } catch (error){
+                    error('Build not approved in time')
+                }
+            }
+        }
+
+        stage('Deploy to Product') { //Switching service
+            steps {
+                sh "kubectl patch -f ./resources/back-end-service.yml -p '{""spec"":{""selector"":{""color"":$newColor""}}}'"
+            }
+        }
     }
 }
