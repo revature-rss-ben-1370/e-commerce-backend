@@ -7,7 +7,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CookieValue;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -48,11 +47,29 @@ public class AuthAspect {
     // String errorMessage = "Missing required role to perform this action";
     // return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorMessage);
     @Around("@annotation(authorized)")
-    public Object authenticate(ProceedingJoinPoint pjp, Authorized authorized
-            , @CookieValue(name="user") String username
-            , @CookieValue(name="auth") String password) throws Throwable {
+    public Object authenticate(ProceedingJoinPoint pjp, Authorized authorized) throws Throwable {
+        // I originally tried @CookieValue from org.springframework.web.bind.annotation.CookieValue
+        // but it didn't cooperate, so I went with the simpler solution
+        // using HttpServletRequest req.
+        
         AuthServiceImpl aServe = new AuthServiceImpl();
         //We now use cookies, not sessions!
+
+        //Get the username and password cookies
+        String username = null;
+        String password = null;
+        
+        Cookie[] cookies = req.getCookies();
+        if(cookies != null) {
+            for(Cookie c : cookies){
+                if(c.getName().equals("user")) {
+                    username = c.getValue();
+                }
+                if(c.getName().equals("auth")) {
+                    password = c.getValue();
+                }
+            }
+        }
         
         // If the user is not logged in
         if(username == null || password == null 
