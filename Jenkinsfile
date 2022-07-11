@@ -17,14 +17,13 @@ pipeline {
             steps {
                 container{'kubectl'} {
                     script{
-                        liveBranch = "kubectl get svc back-end-service -n p3-space -o=jsonpath='{.spec.selector.app}'"
+                        liveBranch = "kubectl get svc back-end-service -n bg -o=jsonpath='{.spec.selector.color}'"
+                        if (liveBranch == 'blue') {
+                                newColor = 'green'
+                        } else {
+                                newColor = 'blue'
+                        }
                     }
-                }
-
-                if (liveBranch == 'blue') {
-                    newColor = 'green'
-                } else {
-                    newColor = 'blue'
                 }
             }
         }
@@ -79,6 +78,7 @@ pipeline {
                     echo "$newColor"
                     // sh 'kubectl delete -f ./resources/back-end-deployment.yml -n p3-space'
                     // sh 'kubectl apply -f ./resources/back-end-deployment-blue.yml -n p3-space'
+                    sh 'kubectl apply -f ./resources/back-end-deployment.yml -n bg'
                     // sh 'kubectl apply -f ./resources/back-end-deployment-green.yml -n p3-space'
                 }
             }
