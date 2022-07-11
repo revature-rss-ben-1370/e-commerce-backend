@@ -1,11 +1,24 @@
-node {
-  stage('SCM') {
-    checkout scm
-  }
-  stage('SonarQube Analysis') {
-    def mvn = tool 'Maven';
-    withSonarQubeEnv('sonarserver') {
-      sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=test1"
+pipeline{
+  stages{
+    stage('Quality Check'){
+      steps{
+          script{
+            withSonarQubeEnv('sonarserver'){
+             sh "mvn sonar:sonar"
+                    }
+            timeout(time: 1, unit: 'HOURS'){
+            def qg = waitForQualityGate()
+                if (qg.status =! 'OK'){
+                  error "Pipelin aborted due to quality gate faillure: $(qg.status)"
+
+                }  
+                  }
+                  sh "mvn clean install"
+          }
+      }
+
     }
   }
+
+
 }
