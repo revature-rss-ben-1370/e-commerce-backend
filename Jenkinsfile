@@ -81,13 +81,10 @@ pipeline {
         stage('smoke-test'){
             steps {
                 container('k6'){
-                    script{ 
-                        sh 'chmod +x setup_k6.sh'
-                        sh './setup_k6.sh'
-                        echo 'completed chmod and setup'
-                        sh 'k6 version'
-
-                    }
+                    sh 'chmod +x setup_k6.sh'
+                    sh './setup_k6.sh'
+                    echo 'completed chmod and setup'
+                    sh 'k6 version'
                 }
             }
         }
