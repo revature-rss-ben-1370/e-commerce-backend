@@ -1,9 +1,9 @@
 apiVersion: apps/v1
-kind: Deployment 
-metadata: 
-  name: back-end-deployment 
-  namespace: p3-space  
-  labels: 
+kind: Deployment
+metadata:
+  name: $newColor
+  namespace: bg
+  labels:
     app: e-commerce
 
 spec: # Specifications for the Deployment!
@@ -14,15 +14,15 @@ spec: # Specifications for the Deployment!
     rollingUpdate:
       maxSurge: 3
       maxUnavailable: 0
-  selector: 
-    matchLabels: 
+  selector:
+    matchLabels:
       app: e-commerce
-  template: 
-    metadata: 
-      labels: 
+  template:
+    metadata:
+      labels:
         app: e-commerce
     spec: # specification for the pod itself now!
-      containers: 
+      containers:
         - name: back-end-deployment
           image: elrintowser/p3-backend
           env:

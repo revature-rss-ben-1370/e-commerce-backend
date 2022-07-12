@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment 
 metadata: 
-  name: back-end-deployment 
-  namespace: p3-space  
+  name: back-end-deployment-blue
+  namespace: p3-space
   labels: 
     app: e-commerce
 
@@ -17,13 +17,15 @@ spec: # Specifications for the Deployment!
   selector: 
     matchLabels: 
       app: e-commerce
+      color: blue
   template: 
     metadata: 
       labels: 
         app: e-commerce
+        color: blue
     spec: # specification for the pod itself now!
       containers: 
-        - name: back-end-deployment
+        - name: back-end-deployment-blue
           image: elrintowser/p3-backend
           env:
             - name: DB_PLATFORM
