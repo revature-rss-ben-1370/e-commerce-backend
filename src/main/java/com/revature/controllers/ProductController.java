@@ -76,6 +76,8 @@ public class ProductController {
     @Authorized
     @DeleteMapping("/{id}")
     public ResponseEntity<Product> deleteProduct(@PathVariable("id") int id) {
+        deleteProduct(id);
+
         Optional<Product> optional = productService.findById(id);
 
         if(!optional.isPresent()) {
