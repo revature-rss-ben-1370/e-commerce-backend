@@ -5,6 +5,8 @@ labels:
   component: ci
 spec:
   serviceAccountName: jenkins
+  securityContext:
+    runAsUser: 1000
   containers:
     - name: docker
       image: docker:latest
@@ -32,7 +34,6 @@ spec:
         - cat
       tty: true
       imagePullPolicy: Always
-
   volumes:
     - name: docker-sock
       hostPath:
