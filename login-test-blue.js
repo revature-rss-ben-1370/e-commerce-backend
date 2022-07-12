@@ -9,9 +9,9 @@ export const options = {
 export default function () {
     let body = {email: 'testing@test.test', password: 'TestTest1!'}
 
-    http.post('http://a8164654749db438791fab617e96f1c9-157527310.us-east-1.elb.amazonaws.com/e-commerce/auth/login',
+    http.post('http://a8164654749db438791fab617e96f1c9-157527310.us-east-1.elb.amazonaws.com:5000/auth/login',
     JSON.stringify(body));
     sleep(0.1)
-    http.post('http://a8164654749db438791fab617e96f1c9-157527310.us-east-1.elb.amazonaws.com/e-commerce/auth/logout',
+    http.post('http://a8164654749db438791fab617e96f1c9-157527310.us-east-1.elb.amazonaws.com:5000/auth/logout',
     JSON.stringify(body))
 }

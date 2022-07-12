@@ -9,8 +9,8 @@ export const options = {
 export default function () {
 
 
-    http.get('http://a0b905afdcd8d45fab0d6125451e1e3c-315284420.us-east-1.elb.amazonaws.com/e-commerce/api/product');
+    http.get('http://a0b905afdcd8d45fab0d6125451e1e3c-315284420.us-east-1.elb.amazonaws.com:5000/e-commerce/api/product');
     sleep(0.01);
-    http.get('http://a0b905afdcd8d45fab0d6125451e1e3c-315284420.us-east-1.elb.amazonaws.com/e-commerce/api/product');
+    http.get('http://a0b905afdcd8d45fab0d6125451e1e3c-315284420.us-east-1.elb.amazonaws.com:5000/e-commerce/api/product');
     sleep(0.01);
 }
