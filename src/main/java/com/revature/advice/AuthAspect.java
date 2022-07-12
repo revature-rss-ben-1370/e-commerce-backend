@@ -7,6 +7,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -52,6 +55,10 @@ public class AuthAspect {
         // but it didn't cooperate, so I went with the simpler solution
         // using HttpServletRequest req.
         
+        HttpServletRequest request 
+            = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+                .getRequest();
+        
         AuthServiceImpl aServe = new AuthServiceImpl();
         //We now use cookies, not sessions!
 
@@ -59,26 +66,18 @@ public class AuthAspect {
         String username = null;
         String password = null;
         
-        Cookie[] cookies = req.getCookies();
-         
-        if(cookies != null) {
-            for(Cookie c : cookies){
-                System.out.println(c);
-                if(c.getName().equals("user")) {
-                    username = c.getValue();
-                }
-                if(c.getName().equals("auth")) {
-                    password = c.getValue();
-                }
-            }
-        }
+        Cookie[] cookies = request.getCookies();
+        
+        Cookie usernameCookie = WebUtils.getCookie(request, "user");
+        Cookie passwordCookie = WebUtils.getCookie(request, "auth");
         
         // If the user is not logged in
-        if(username == null || password == null 
-                || !aServe.findByCredentials(username, password).isPresent()) {
+        if(usernameCookie == null || passwordCookie == null 
+                || !aServe.findByCredentials(usernameCookie.getValue(), passwordCookie.getValue()).isPresent()) {
             throw new NotLoggedInException("Must be logged in to perform this action."
-                    + " Username: " + username
-                    + " password: " + password);
+                    + " Username: " + usernameCookie
+                    + " password: " + passwordCookie
+                    + " path: " + request.getPathInfo());
         }
 
         return pjp.proceed(pjp.getArgs()); // Call the originally intended method

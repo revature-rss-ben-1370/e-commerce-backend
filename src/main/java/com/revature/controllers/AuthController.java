@@ -47,6 +47,10 @@ public class AuthController{
         }
         Cookie username = new Cookie("user", optionalUser.get().getEmail());
         Cookie pass = new Cookie("auth", loginRequest.getPassword());
+        
+        username.setPath("/");
+        pass.setPath("/");
+        
         response.addCookie(username);
         response.addCookie(pass);
 
