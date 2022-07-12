@@ -2,13 +2,20 @@ package com.revature.advice;
 
 import com.revature.annotations.Authorized;
 import com.revature.exceptions.NotLoggedInException;
+import com.revature.services.AuthService;
+import com.revature.services.AuthServiceImpl;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.util.WebUtils;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.Arrays;
+import java.util.Optional;
 
 @Aspect
 @Component
@@ -18,9 +25,14 @@ public class AuthAspect {
     // It isn't a request object itself, but if there is an active request
     // the proxy will pass method calls to the real request
     private final HttpServletRequest req;
+    private final AuthService authService;
 
-    public AuthAspect(HttpServletRequest req) {
+    public AuthAspect(HttpServletRequest req, AuthService authService) {
         this.req = req;
+        // This is black magic
+        // How does Spring Boot instantiate authService?
+        // Only Spring Boot knows.
+        this.authService = authService;
     }
 
     // This advice will execute around any method annotated with @Authorized
@@ -45,12 +57,33 @@ public class AuthAspect {
     // return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorMessage);
     @Around("@annotation(authorized)")
     public Object authenticate(ProceedingJoinPoint pjp, Authorized authorized) throws Throwable {
+        // I originally tried @CookieValue from org.springframework.web.bind.annotation.CookieValue
+        // but it didn't cooperate, so I went with the simpler solution
+        // using HttpServletRequest req.
+        
+        HttpServletRequest request 
+            = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+                .getRequest();
+        
+        AuthService aServe = authService;
+        //We now use cookies, not sessions!
 
-        HttpSession session = req.getSession(); // Get the session (or create one)
-
+        //Get the username and password cookies
+        String username = null;
+        String password = null;
+        
+        Cookie[] cookies = request.getCookies();
+        
+        Cookie usernameCookie = WebUtils.getCookie(request, "user");
+        Cookie passwordCookie = WebUtils.getCookie(request, "auth");
+        
         // If the user is not logged in
-        if(session.getAttribute("user") == null) {
-            throw new NotLoggedInException("Must be logged in to perform this action");
+        if(usernameCookie == null || passwordCookie == null 
+                || !aServe.findByCredentials(usernameCookie.getValue(), passwordCookie.getValue()).isPresent()) {
+            throw new NotLoggedInException("Must be logged in to perform this action."
+                    + " Username: " + usernameCookie
+                    + " password: " + passwordCookie
+                    + " path: " + request.getPathInfo());
         }
 
         return pjp.proceed(pjp.getArgs()); // Call the originally intended method

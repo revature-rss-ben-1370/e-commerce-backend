@@ -7,6 +7,7 @@ metadata:
     app: e-commerce
     color: blue
 spec: 
+  sessionAffinity: ClientIP
   selector: 
     app: e-commerce
     color: blue
