@@ -11,7 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Cookie;
 import java.util.Optional;
 
 @RestController
@@ -37,22 +38,34 @@ public class AuthController{
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest, HttpSession session){
-        Optional<User> optional = authService.findByCredentials(loginRequest.getEmail(), loginRequest.getPassword());
+    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest, HttpServletResponse response){
+        Optional<User> optionalUser = authService.findByCredentials(loginRequest.getEmail(), loginRequest.getPassword());
 
-        if (!optional.isPresent()) {
+        if (!optionalUser.isPresent()) {
 
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        session.setAttribute("user", optional.get());
+        Cookie username = new Cookie("user", optionalUser.get().getEmail());
+        Cookie pass = new Cookie("auth", loginRequest.getPassword());
+        
+        username.setPath("/");
+        pass.setPath("/");
+        
+        response.addCookie(username);
+        response.addCookie(pass);
 
-        return ResponseEntity.status(HttpStatus.OK).body(optional.get());
+        return ResponseEntity.status(HttpStatus.OK).body(optionalUser.get());
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(HttpSession session){
-        session.removeAttribute("user");
-
+    public ResponseEntity<Void> logout(HttpServletResponse response){
+        Cookie username = new Cookie("user", null);
+        username.setMaxAge(0);
+        response.addCookie(username);
+        Cookie pass = new Cookie("auth", null);
+        pass.setMaxAge(0);
+        response.addCookie(username);
+        response.addCookie(pass);
         return ResponseEntity.ok().build();
     }
 

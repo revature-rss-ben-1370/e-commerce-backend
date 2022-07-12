@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 
 import javax.crypto.SecretKeyFactory;
@@ -77,7 +78,7 @@ public class HashingTests{
         LoginRequest request = new LoginRequest();
         request.setEmail("testuser@gmail.com");
         request.setPassword("password");
-        ResponseEntity<User> test = authController.login(request, new MockHttpSession());
+        ResponseEntity<User> test = authController.login(request, new MockHttpServletResponse());
         //Assertions.assertTrue(test.getStatusCodeValue() >= 200 && test.getStatusCodeValue() < 300);
     }
 
@@ -86,7 +87,7 @@ public class HashingTests{
         LoginRequest request = new LoginRequest();
         request.setEmail("testuser@gmail.com");
         request.setPassword("badPassword");
-        ResponseEntity<User> test = authController.login(request, new MockHttpSession());
+        ResponseEntity<User> test = authController.login(request, new MockHttpServletResponse());
         Assertions.assertFalse(test.getStatusCodeValue() >= 200 && test.getStatusCodeValue() < 300);
     }
 
