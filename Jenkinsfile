@@ -80,7 +80,7 @@ pipeline {
         stage('k6 load & smoke tests'){
             steps {
                 container('k6'){
-                    sh "k6 run load-test-$newColor" + ".js"
+                    sh "k6 run stress-test-$newColor" + ".js"
                     sh "k6 run smoke-test-$newColor" + ".js"
                 }
             }
