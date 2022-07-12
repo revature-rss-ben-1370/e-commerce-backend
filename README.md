@@ -50,4 +50,60 @@ To download the image from docker, enter the command:
 in the directory of your choosing. Open with your Docker desktop and run as a containerized image.
 
 
+----------
+## Eclipse / Spring Tool Suite IDE Instructions
+**1) Setting up Lombok in your IDE.**
+
+This project has Lombok as a maven dependency:
+
+	<dependency>
+		<groupId>org.projectlombok</groupId>
+		<artifactId>lombok</artifactId>
+		<optional>true</optional>
+	</dependency>
+
+Lombok autogenerates boilerplate code. In this project we use it to generate our getter and setter methods, which could upset your IDE.
+
+You will need to install Lombok in your IDE. [Here is a good tutorial from Baeldung.](https://www.baeldung.com/lombok-ide)
+
+After using the lombok installer, you might still need to do this:
+1. Restart Eclipse
+2. Project > Clean
+3. Project > Update Maven Project
+
+**2) Setting up environment variables**
+
+**You will need to set it up twice: once for the Spring Boot App run configurations, and a second time for the JUnit test run configurations**
+
+Since our project uses a different database setup on the kubernetes cluster, we use environment variables to configure the database. This means you will need to set the environment variables to run the project locally.
+
+The following variables are for an in memory database:
+
+<table>
+    <tr>
+        <td><b>Variable Name</b></td>
+        <td><b>Value</b></td>
+    </tr>
+    <tr>
+        <td>DB_PLATFORM</td>
+        <td>org.hibernate.dialect.H2Dialect</td>
+    </tr>
+    <tr>
+        <td>DB_URL</td>
+        <td>jdbc:h2:mem:test;MODE=PostgreSQL</td>
+    </tr>
+    <tr>
+        <td>DB_DRIVER</td>
+        <td>org.h2.Driver</td>
+    </tr>
+</table>
+
+You can find your environment variables in:
+
+> Eclipse IDE > Run > Run Configurations > Select your Spring Boot App or JUnit configuration > "Environment" tab
+
+Screenshot for reference:
+
+<img src="screenshots/eclipse-run-configurations.png" width="720"/>
+
 ## Happy coding!
