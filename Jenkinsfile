@@ -80,7 +80,7 @@ pipeline {
             steps {
                 container('k6'){
                     sh 'k6 run smoke-test.js'
-                    sh 'l6 run login-test.js'
+                    sh 'k6 run login-test.js'
                 }
             }
         }
