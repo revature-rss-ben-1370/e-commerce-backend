@@ -81,16 +81,8 @@ pipeline {
         stage('smoke-test'){
             steps {
                 container('k6'){
-                    sh 'ls'
-                    sh 'k6 version'
+                    sh 'k6 run smoke-test.js'
                 }
-//                 container('jnlp'){
-//                     sh 'ls'
-//                     sh 'sudo chmod +x setup_k6.sh'
-//                     sh 'sudo ./setup_k6.sh'
-//                     echo 'completed chmod and setup'
-//                     sh 'sudo k6 version'
-//                 }
             }
         }
 
