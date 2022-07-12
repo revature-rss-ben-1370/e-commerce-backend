@@ -13,20 +13,20 @@ pipeline {
         newColor = ''
     }
     stages {
-        // stage('Obtain live branch') {
-        //     steps {
-        //         container('kubectl') {
-        //             script{
-        //                 liveBranch = sh(script:"kubectl get svc back-end-service -n bg -o=jsonpath='{.spec.selector.color}'", returnStdout:true).trim()
-        //                 if (liveBranch.equals("blue")) {
-        //                         newColor = "green"
-        //                 } else {
-        //                         newColor = "blue"
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Obtain live branch') {
+            steps {
+                container('kubectl') {
+                    script{
+                        liveBranch = sh(script:"kubectl get svc back-end-service -n bg -o=jsonpath='{.spec.selector.color}'", returnStdout:true).trim()
+                        if (liveBranch.equals("blue")) {
+                                newColor = "green"
+                        } else {
+                                newColor = "blue"
+                        }
+                    }
+                }
+            }
+        }
         // stage('Build') {
         //     steps {
         //         container('maven'){
