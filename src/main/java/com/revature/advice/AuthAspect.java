@@ -60,8 +60,10 @@ public class AuthAspect {
         String password = null;
         
         Cookie[] cookies = req.getCookies();
+         
         if(cookies != null) {
             for(Cookie c : cookies){
+                System.out.println(c);
                 if(c.getName().equals("user")) {
                     username = c.getValue();
                 }
@@ -74,7 +76,9 @@ public class AuthAspect {
         // If the user is not logged in
         if(username == null || password == null 
                 || !aServe.findByCredentials(username, password).isPresent()) {
-            throw new NotLoggedInException("Must be logged in to perform this action");
+            throw new NotLoggedInException("Must be logged in to perform this action."
+                    + " Username: " + username
+                    + " password: " + password);
         }
 
         return pjp.proceed(pjp.getArgs()); // Call the originally intended method
