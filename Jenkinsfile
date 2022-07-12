@@ -30,7 +30,7 @@ pipeline {
         stage('Build') {
             steps {
                 container('maven'){
-                    echo 'Building..'
+                    echo 'Building...'
                     sh "export DB_PLATFORM=org.hibernate.dialect.H2Dialect"
                     sh "export DB_URL=jdbc:h2:mem:test;MODE=PostgreSQL"
                     sh "export DB_DRIVER=org.h2.Driver"
