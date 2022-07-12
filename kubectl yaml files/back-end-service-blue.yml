@@ -7,7 +7,6 @@ metadata:
     app: e-commerce
 spec: 
   type: LoadBalancer
-  sessionAffinity: ClientIP
   selector: 
     app: e-commerce
     color: blue
