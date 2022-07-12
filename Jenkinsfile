@@ -78,15 +78,16 @@ pipeline {
             }
         }
 
-        // stage('smoke-test'){
-        //     steps {
-        //         container('k6'){
-        //             script{ 
-        //                 sh 'k6 version'
-        //             }
-        //         }
-        //     }
-        // }
+        stage('smoke-test'){
+            steps {
+                container('k6'){
+                    script{
+                        sh 'ls'
+                        sh 'k6 version'
+                    }
+                }
+            }
+        }
 
         stage('Production Approve Request'){
             steps {
