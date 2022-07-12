@@ -80,7 +80,7 @@ pipeline {
 
         stage('smoke-test'){
             steps {
-                container(k6){
+                container('k6'){
                     sh 'ls'
                     sh 'k6 version'
                 }
