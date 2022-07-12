@@ -81,6 +81,7 @@ pipeline {
         stage('smoke-test'){
             steps {
                 container('jnlp'){
+                    sh 'ls'
                     sh 'sudo chmod +x setup_k6.sh'
                     sh 'sudo ./setup_k6.sh'
                     echo 'completed chmod and setup'
