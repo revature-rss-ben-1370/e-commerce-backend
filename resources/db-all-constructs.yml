@@ -1,0 +1,49 @@
+apiVersion: v1 # Source: https://kubernetes.io/docs/tutorials/stateful-application/basic-stateful-set/
+kind: Service
+metadata:
+  name: db-service
+  namespace: p3-space
+  labels:
+    app: db
+spec:
+  ports:
+  - port: 5432
+    name: db-port
+  clusterIP: None
+  selector:
+    app: db
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: db #this was originally web, which matched line 35
+  namespace: p3-space
+spec:
+  serviceName: db-service
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: db
+        image: postgres
+        env:
+          - name: POSTGRES_PASSWORD
+            value: example
+          - name: PGDATA 
+            value: /var/lib/postgresql/data/pgdata
+        ports:
+          - containerPort: 5432
+            name: db-port
+        volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: db-data
+      volumes:
+        - name: db-data #I'm attaching the volume in the container, labelled as "db-data" to an external volume
+          persistentVolumeClaim:
+            claimName: postgres-pvc
