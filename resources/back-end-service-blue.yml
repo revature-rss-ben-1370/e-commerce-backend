@@ -1,13 +1,12 @@
 apiVersion: v1
 kind: Service 
 metadata:
-  name: back-end-service
-  namespace: bg
+  name: back-end-service-blue
+  namespace: p3-space
   labels: 
     app: e-commerce
-    color: blue
 spec: 
-  sessionAffinity: ClientIP
+  type: LoadBalancer
   selector: 
     app: e-commerce
     color: blue
