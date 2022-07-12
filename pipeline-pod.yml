@@ -6,7 +6,7 @@ labels:
 spec:
   serviceAccountName: jenkins
   securityContext:
-    runAsUser: 1000
+    runAsUser: 0
   containers:
     - name: docker
       image: docker:latest
