@@ -13,7 +13,7 @@ spec: # Specifications for the Deployment!
     type: RollingUpdate
     rollingUpdate:
       maxSurge: 3
-      maxUnavailable: 0
+      maxUnavailable: 1
   selector: 
     matchLabels: 
       app: e-commerce

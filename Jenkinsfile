@@ -68,19 +68,20 @@ pipeline {
                     }
             }
         }
-        stage('Deploy') {
+        stage('Deploy to test environment') {
             steps {
                 container('kubectl') {
+                    sh "kubectl delete -f ./resources/back-end-deployment-$newColor" + ".yml -n p3-space"
                     sh "kubectl apply -f ./resources/back-end-deployment-$newColor" + ".yml -n p3-space"
                 }
             }
         }
 
-        stage('smoke-test'){
+        stage('k6 load & smoke tests'){
             steps {
                 container('k6'){
+                    sh "k6 run load-test-$newColor" + ".js"
                     sh "k6 run smoke-test-$newColor" + ".js"
-                    sh "k6 run login-test-$newColor" + ".js"
                 }
             }
         }
@@ -90,12 +91,12 @@ pipeline {
                 script {
                     try {
                         approved = input message: 'Deploy to production?', ok: 'Continue',
-                            parameters: [choice(name: 'approved', choices: 'Yes\nNo', description: 'Deploy this build to production')]
+                            parameters: [choice(name: 'approved?', choices: 'Yes\nNo', description: 'Deploy this build to production?')]
                         if(approved != 'Yes'){
                             error('Build not approved')
                         }
                     } catch (error){
-                        error('Build not approved in time')
+                        error('Uh Oh')
                     }
                 }
             }
