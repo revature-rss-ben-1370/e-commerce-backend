@@ -2,6 +2,7 @@ package com.revature.advice;
 
 import com.revature.annotations.Authorized;
 import com.revature.exceptions.NotLoggedInException;
+import com.revature.services.AuthService;
 import com.revature.services.AuthServiceImpl;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -24,9 +25,14 @@ public class AuthAspect {
     // It isn't a request object itself, but if there is an active request
     // the proxy will pass method calls to the real request
     private final HttpServletRequest req;
+    private final AuthService authService;
 
-    public AuthAspect(HttpServletRequest req) {
+    public AuthAspect(HttpServletRequest req, AuthService authService) {
         this.req = req;
+        // This is black magic
+        // How does Spring Boot instantiate authService?
+        // Only Spring Boot knows.
+        this.authService = authService;
     }
 
     // This advice will execute around any method annotated with @Authorized
@@ -59,7 +65,7 @@ public class AuthAspect {
             = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
                 .getRequest();
         
-        AuthServiceImpl aServe = new AuthServiceImpl();
+        AuthService aServe = authService;
         //We now use cookies, not sessions!
 
         //Get the username and password cookies
