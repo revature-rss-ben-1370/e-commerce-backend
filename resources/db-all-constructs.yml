@@ -9,7 +9,7 @@ spec:
   ports:
   - port: 5432
     name: db-port
-  clusterIP: None
+  type: ClusterIP
   selector:
     app: db
 ---

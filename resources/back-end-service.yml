@@ -8,9 +8,9 @@ metadata:
 spec: 
   selector: 
     app: e-commerce
-    color: "green"
   ports: 
     - port: 5000 #back-end prot 
       targetPort: 5000 # this is for the container port 
       name: http
       protocol: TCP
+  type: LoadBalancer
